@@ -212,6 +212,15 @@
             <span class='border border-white/5 bg-orange-700/80 backdrop-blur-3xl w-fit h-fit px-1 rounded-md text-xs capitalize'>Coming Soon</span>
           </b:if>
         </b:includable>
+        <b:includable id='Genre'>
+          <b:loop index='i' values='data:post.labels' var='label'>
+            <b:if cond='data:label.name in data:Genre and data:label.name in data:Genre2'>
+              <a expr:data='data:label.name' expr:href='data:label.url'>
+                <data:label.name/>
+              </a>
+            </b:if>
+          </b:loop>
+        </b:includable>
         <b:includable id='Ad_1'>
           <b:if cond='data:skin.vars.showads == &quot;1px&quot;'>
             <b:if cond='!data:view.isLayoutMode'>
@@ -616,16 +625,15 @@ console.log('%cDragonion V1.0.0%cBy Itachisi.blogspot.com', 'color: #fff; backgr
                  <b:class cond='!(data:view.title contains &quot;Chapter&quot;)' name='grid sm:gap-10 gap-[4vw] w-full h-fit'/>
                  <b:with value='data:widgets.FeaturedPost filter (w =&gt; w.sectionId == &quot;main&quot;) map (w =&gt; w.postId)' var='featuredPostIds'>
                    <b:with value='data:view.isHomepage ? data:posts filter (post =&gt; post.id not in data:featuredPostIds): data:posts' var='posts'>
-                     <b:if cond='data:view.isHomepage'>
-                       <b:with value='data:posts filter (p =&gt; p.labels none (l =&gt; l.name in [&quot;Chapter&quot;,&quot;Episode&quot;,&quot;Novel&quot;]))' var='posts'>   
-                         <b:tag class='r2 s1 bc-fff' name='section'>
+                     <b:if cond='data:view.isLabelSearch OR data:view.isSearch'>
+                       <b:with value='data:posts filter (p =&gt; p.labels none (l =&gt; l.name in [&quot;Chapter&quot;]))' var='posts'>   
                            <b:include name='viewbar'/>
-                           <b:tag class='grid gg-20 hfeed p-13' name='div'>
+                           <b:tag class='grid 2xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 sm:gap-x-4 sm:gap-y-8 gap-4' name='div'>
                              <b:loop index='i' values='data:posts' var='post'>
                                <b:include data='post' name='postSeries'/>
                              </b:loop>
                            </b:tag>
-                         </b:tag>
+                         <b:include name='postPagination'/>
                        </b:with>
                      </b:if>
                      <b:if cond='data:view.isSingleItem'>
@@ -641,15 +649,6 @@ console.log('%cDragonion V1.0.0%cBy Itachisi.blogspot.com', 'color: #fff; backgr
                      </b:if>
                    </b:with>
                  </b:with>
-                 <b:if cond='data:view.isLabelSearch OR data:view.isSearch'>
-                   <b:include name='viewbar'/>
-                   <div class='grid 2xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 sm:gap-x-4 sm:gap-y-8 gap-4'>
-                     <b:loop index='i' values='data:posts' var='post'>
-                       <b:include cond='data:post.labels none ( l =&gt; l.name in [&quot;Chapter&quot;] )' name='postSeries'/>
-                     </b:loop>
-                   </div>
-                   <b:include name='postPagination'/>
-                 </b:if>
                </b:includable>
                <b:includable id='Disqus' var='post'>
                  <div class='grid w-full'>
