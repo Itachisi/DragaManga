@@ -1247,8 +1247,8 @@ window.addEventListener(&#39;scroll&#39;, function(e) {
                </b:includable>
              </b:widget>
            </b:section>
-         <b:tag class='max-w-[25rem] w-full 2xl:flex flex-col hidden gap-4 h-fit' cond='!(data:view.title contains &quot;Chapter&quot;) and !data:view.isError' id='sidebar' name='div'>
-           <div class='flex  justify-between items-center h-fit sm:mb-6'><h2 class='sm:text-2xl text-[5.5vw] font-bold'>Trending</h2></div>
+         <b:tag class='max-w-[25rem] w-full 2xl:flex flex-col hidden gap-4 h-fit' cond='data:view.isHomepage' id='sidebar' name='div'>
+           <b:tag  class='flex  justify-between items-center h-fit sm:mb-6' name='div'><b:tag  class='sm:text-2xl text-[5.5vw] font-bold' name='h2'>Trending</b:tag ></b:tag >
            <b:section cond='data:view.isHomepage' id='Side' maxwidgets='1' showaddelement='true'>
              <b:widget id='PopularPosts01' locked='true' title='Trending' type='PopularPosts' version='2' visible='true'>
                <b:widget-settings>
